@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6", // we don't write frontend code, so es6 is fine
+    "module": "commonjs",
+    "allowJs": true, // true = not all files have to be .ts files
+    "outDir": "./build", // the folder in which the compiled JS files are put
+    "strict": true, // enables all strict type-checking options
+    "alwaysStrict": true, // 'use strict' at the beginning of compiled .js files
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
