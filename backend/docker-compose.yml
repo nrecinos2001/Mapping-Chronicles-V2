@@ -1,0 +1,71 @@
+
+
+services:
+  # DEVELOPMENT CONTAINER
+  dev:
+    container_name: mapping_chronicles_dev
+    image: chornicles-api-dev:1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE=${DATABASE}
+    networks:
+      - chornicles-network
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+
+# DATABASE CONTAINER
+  mongodb:
+    image : mongo:latest
+    container_name: chornicles_db
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_DATABASE}
+    networks:
+      - chornicles-network
+    restart: always
+
+  # PRODUCTION CONTAINER
+  prod:
+    container_name: mapping_chronicles_prod
+    image: chornicles-api-prod:1.0.0
+    build:
+      context: .
+      target: production
+      dockerfile: ./Dockerfile
+    command: npm run start:prod
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE=${DATABASE}
+    networks:
+      - chornicles-network
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+
+# NETWORKS
+networks:
+    chornicles-network:
+      driver: bridge
+
+# VOLUMES
+volumes:
+  mongodb_volume:
