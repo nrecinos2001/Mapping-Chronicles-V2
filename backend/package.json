@@ -28,15 +28,17 @@
     "validator": "^13.9.0",
     "xss-clean": "^0.1.4"
   },
-      "devDependencies": {},
-      "name": "backend",
-      "version": "1.0.0",
-      "main": "index.js",
-      "scripts": {
-        "start:dev": "nodemon server.js",
-        "start": "nodemon index.js"
-    },
-    "author": "",
-    "license": "ISC",
-    "description": ""
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon server.js",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
