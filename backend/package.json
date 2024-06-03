@@ -29,14 +29,15 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "@types/node": "^20.14.0",
     "typescript": "^5.4.5"
   },
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon server.js",
-    "start": "nodemon index.js"
+    "start:dev": "tsc && nodemon build/server.js",
+    "start": "tsc && node index.js"
   },
   "author": "",
   "license": "ISC",
