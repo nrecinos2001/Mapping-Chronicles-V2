@@ -11,7 +11,7 @@ const ParadasPrimarias = require('../models/ParadasPrimarias');
 const BufferEntradasUCA = require('../models/BufferEntradasUCA');
 const EntradasUCA = require('../models/EntradasUCA');
 const RutasPrimarias = require('../models/RutasPrimarias');
-exports.dinamicBuffer = function(req, res) {
+export const dinamicBuffer = function (req, res) {
     
     const requestUrl = req.url;
     
@@ -38,7 +38,7 @@ exports.dinamicBuffer = function(req, res) {
 }
 
 
-exports.getBusStopsByRadius = async function(req, res) {
+export const getBusStopsByRadius = async function (req, res) {
 
     const requestUrl = req.url
 
@@ -69,7 +69,7 @@ exports.getBusStopsByRadius = async function(req, res) {
 }
 
 
-exports.getNearestBusStop = async function(req, res) {
+export const getNearestBusStop = async function (req, res) {
     
         const requestUrl = req.url
     
@@ -94,7 +94,7 @@ exports.getNearestBusStop = async function(req, res) {
     }
 
 
-exports.getBufferEntradasUCA = async function(req, res) {
+export const getBufferEntradasUCA = async function (req, res) {
     try{
         const bufferEntradasUCA = await BufferEntradasUCA.find();
         res.status(200).json(bufferEntradasUCA);
@@ -105,7 +105,7 @@ exports.getBufferEntradasUCA = async function(req, res) {
 }
 
 
-exports.getEntradasUCA = async function(req, res) {
+export const getEntradasUCA = async function (req, res) {
     try{
         const entradasUCA = await EntradasUCA.find();
         res.status(200).json(entradasUCA);
@@ -115,7 +115,7 @@ exports.getEntradasUCA = async function(req, res) {
     }
 }
 
-exports.getParadasPrimarias = async function(req, res) {
+export const getParadasPrimarias = async function (req, res) {
     try{
         const paradasPrimarias = await ParadasPrimarias.find(); 
         res.status(200).json(paradasPrimarias);
@@ -125,7 +125,7 @@ exports.getParadasPrimarias = async function(req, res) {
     }
 }
 
-exports.getRutasPrimarias = async function(req, res) {
+export const getRutasPrimarias = async function (req, res) {
     try {
         const rutasPrimarias = await RutasPrimarias.find();
         res.status(200).json(rutasPrimarias);
