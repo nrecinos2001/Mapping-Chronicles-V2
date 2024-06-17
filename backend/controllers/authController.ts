@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 const { promisify } = require('util');
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 const crypto = require('crypto');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
