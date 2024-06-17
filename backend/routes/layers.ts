@@ -5,8 +5,9 @@
   https://opensource.org/licenses/MIT.
 */
 import express from 'express';
+import * as layersController from '@Controllers/index';
+
 export const layerRouter = express.Router();
-const layersController = require('../controllers/layersController');
 
 layerRouter.get('/getMyBuffer', layersController.dinamicBuffer)
 layerRouter.get('/getBusStopsByRadius', layersController.getBusStopsByRadius)
