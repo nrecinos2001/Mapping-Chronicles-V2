@@ -18,7 +18,7 @@ import xss from 'xss-clean';
 //const hpp = require('hpp');
 import cors from 'cors';
 import { AppError } from '@Utils/index';
-import globalErrorHandler from './controllers/errorController';
+import { errorHandler as globalErrorHandler } from '@Controllers/index';
 import { userRouter, pinRouter, layerRouter } from '@Routes/index';
 export const app = express();
 
