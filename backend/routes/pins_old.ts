@@ -4,11 +4,12 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const router = require("express").Router();
+import express from 'express';
+export const pinsOldRouter = express.Router();
 const Pin = require("../models/Pin");
 
 // create a pin
-router.post("/", async (req, res) => {
+pinsOldRouter.post("/", async (req, res) => {
     const newPin = new Pin(req.body);
     try {
         const savedPin = await newPin.save();
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
 
 // get all pins
 
-router.get("/", async (req, res) => {
+pinsOldRouter.get("/", async (req, res) => {
     try {
         const pins = await Pin.find();
         res.status(200).json(pins);
@@ -30,5 +31,3 @@ router.get("/", async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-module.exports = router;

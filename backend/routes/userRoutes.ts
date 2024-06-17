@@ -4,13 +4,11 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const express = require('express');
+import express from 'express';
 const authController = require('../controllers/authController');
 
-const router = express.Router();
+export const userRouter = express.Router();
 
 // only makes sense to post data on signup, that's why it has not been chained in the REST format below
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-
-module.exports = router;
+userRouter.post('/register', authController.register);
+userRouter.post('/login', authController.login);

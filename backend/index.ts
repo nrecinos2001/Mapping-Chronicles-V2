@@ -10,9 +10,9 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 
 const app = express();
-const pinRoute = require("./routes/pinRoutes");
-const userRoute = require("./routes/userRoutes");
-const layerRoute = require("./routes/layers");
+import { pinRouter } from "./routes/pinRoutes";
+import userRoute from "./routes/userRoutes";
+import { layerRouter } from "./routes/layers";
 dotenv.config();
 
 app.use(express.json());
@@ -30,9 +30,9 @@ mongoose.connect('mongodb://localhost:27017/chronicles',
     })
     .catch((err: Error) => { console.log(err) });
 
-app.use("/api/pins", pinRoute);
+app.use("/api/pins", pinRouter);
 app.use("/api/users", userRoute);
-app.use("/api/layers", layerRoute);
+app.use("/api/layers", layerRouter);
 app.listen(5000, () => {
     console.log("Server is running on port 5000 :)");
 
