@@ -4,17 +4,28 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import { promisify } from 'util';
-import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+//import { promisify } from 'util';
+import * as jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 import { AppError, catchAsync } from '@Utils/index';
 import { jwtCookieExpiresIn, jwtExpiresIn, jwtSecret } from '@Constants/index';
+import { IRequestWithLoggedUser, ITokenPayload } from 'types';
+
+
+const promisefyJWTToken = (token: string) => {
+    return new Promise(function (resolve, reject) {
+        if (token) return resolve(jwt.verify(token, jwtSecret) as jwt.JwtPayload);
+
+        return reject('Invalid Token');
+    }) as Promise<jwt.JwtPayload>;
+};
 
 const signToken = (id) => jwt.sign({ id }, jwtSecret, {
     expiresIn: jwtExpiresIn,
 });
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user: ITokenPayload, statusCode: number, res: Response) => {
     const token = signToken(user._id);
 
     res.cookie('jwt', token, {
@@ -34,7 +45,7 @@ const createSendToken = (user, statusCode, res) => {
     });
 };
 
-export const register = catchAsync(async (req, res, next) => {
+export const register = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const newUser = await User.create({
         username: req.body.username,
         email: req.body.email,
@@ -45,7 +56,7 @@ export const register = catchAsync(async (req, res, next) => {
     createSendToken(newUser, 201, res);
 });
 
-export const login = catchAsync(async (req, res, next) => {
+export const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     // 1) Check if email exists
@@ -62,9 +73,9 @@ export const login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
-export const protect = catchAsync(async (req, res, next) => {
+export const protect = catchAsync(async (req: IRequestWithLoggedUser, res: Response, next: NextFunction) => {
     // 1) get token and check if it exists
-    let token;
+    let token: string;
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1]; // format is Bearer <token>, therefore need [1] for <token> value
     }
@@ -72,7 +83,7 @@ export const protect = catchAsync(async (req, res, next) => {
         return next(new AppError('You are not logged in. Please log in to get access', 401));
     }
     // 2) Verify token
-    const decoded = await promisify(jwt.verify)(token, jwtSecret); // will decode user ID
+    const decoded = await promisefyJWTToken(token); // will decode user ID
 
     // 3) check if user that made the request still exists
     const currentUser = await User.findById(decoded.id); // this is why I decode the id from the token, so I can now query by userId and make sure that the token belongs to the requesting user
@@ -89,7 +100,7 @@ export const protect = catchAsync(async (req, res, next) => {
     next(); // grant access to protected route... go to 'next' middlware
 });
 
-export const restrictTo = (...roles) => (req, res, next) => {
+export const restrictTo = (...roles: string[]) => (req: IRequestWithLoggedUser, res: Response, next: NextFunction) => {
     if (!roles.includes(req.user.role)) { // the role is comming in the middleware from the above function protect(), which in the routes is placed before the restricTo
         return next(new AppError('You do not have permission to perform this action', 403));
     }
