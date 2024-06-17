@@ -10,7 +10,7 @@ import * as jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 import { AppError, catchAsync } from '@Utils/index';
 import { jwtCookieExpiresIn, jwtExpiresIn, jwtSecret } from '@Constants/index';
-import { IRequestWithLoggedUser, ITokenPayload } from 'types';
+import { ILoginRequest, IRequestWithLoggedUser, ITokenPayload } from 'types';
 
 
 const promisefyJWTToken = (token: string) => {
@@ -21,7 +21,7 @@ const promisefyJWTToken = (token: string) => {
     }) as Promise<jwt.JwtPayload>;
 };
 
-const signToken = (id) => jwt.sign({ id }, jwtSecret, {
+const signToken = (id: string) => jwt.sign({ id }, jwtSecret, {
     expiresIn: jwtExpiresIn,
 });
 
@@ -56,7 +56,7 @@ export const register = catchAsync(async (req: Request, res: Response, next: Nex
     createSendToken(newUser, 201, res);
 });
 
-export const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const login = catchAsync(async (req: ILoginRequest, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     // 1) Check if email exists

@@ -30,7 +30,9 @@ export interface IResponseDynamicBuffer extends Response {
 }
 
 export interface IRequestWithLoggedUser extends Request {
-  user: any; // TODO: Update type
+  user: {
+    role: string,
+  }; // TODO: Update type
 }
 
 // Token
@@ -39,4 +41,11 @@ export interface ITokenPayload {
   username: string;
   email: string;
   password: string;
+}
+
+export interface ILoginRequest extends Request {
+  body: {
+    email: string;
+    password: string;
+  }
 }
