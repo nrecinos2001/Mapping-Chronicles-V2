@@ -1,3 +1,6 @@
+import { Request, Response } from "express";
+import { IResponseDynamicBuffer } from "types";
+
 /*
   Copyright 2023 Mapping Chronicles
   Use of this source code is governed by an MIT-style
@@ -11,7 +14,7 @@ const ParadasPrimarias = require('../models/ParadasPrimarias');
 const BufferEntradasUCA = require('../models/BufferEntradasUCA');
 const EntradasUCA = require('../models/EntradasUCA');
 const RutasPrimarias = require('../models/RutasPrimarias');
-export const dinamicBuffer = function (req, res) {
+export const dinamicBuffer = function (req: Request, res: IResponseDynamicBuffer) {
     
     const requestUrl = req.url;
     
@@ -38,7 +41,7 @@ export const dinamicBuffer = function (req, res) {
 }
 
 
-export const getBusStopsByRadius = async function (req, res) {
+export const getBusStopsByRadius = async function (req: Request, res: Response) {
 
     const requestUrl = req.url
 
@@ -69,7 +72,7 @@ export const getBusStopsByRadius = async function (req, res) {
 }
 
 
-export const getNearestBusStop = async function (req, res) {
+export const getNearestBusStop = async function (req: Request, res: Response) {
     
         const requestUrl = req.url
     
@@ -94,7 +97,7 @@ export const getNearestBusStop = async function (req, res) {
     }
 
 
-export const getBufferEntradasUCA = async function (req, res) {
+export const getBufferEntradasUCA = async function (req: Request, res: Response) {
     try{
         const bufferEntradasUCA = await BufferEntradasUCA.find();
         res.status(200).json(bufferEntradasUCA);
@@ -105,7 +108,7 @@ export const getBufferEntradasUCA = async function (req, res) {
 }
 
 
-export const getEntradasUCA = async function (req, res) {
+export const getEntradasUCA = async function (req: Request, res: Response) {
     try{
         const entradasUCA = await EntradasUCA.find();
         res.status(200).json(entradasUCA);
@@ -115,7 +118,7 @@ export const getEntradasUCA = async function (req, res) {
     }
 }
 
-export const getParadasPrimarias = async function (req, res) {
+export const getParadasPrimarias = async function (req: Request, res: Response) {
     try{
         const paradasPrimarias = await ParadasPrimarias.find(); 
         res.status(200).json(paradasPrimarias);
@@ -125,7 +128,7 @@ export const getParadasPrimarias = async function (req, res) {
     }
 }
 
-export const getRutasPrimarias = async function (req, res) {
+export const getRutasPrimarias = async function (req: Request, res: Response) {
     try {
         const rutasPrimarias = await RutasPrimarias.find();
         res.status(200).json(rutasPrimarias);

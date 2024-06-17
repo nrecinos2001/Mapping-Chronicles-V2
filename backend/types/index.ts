@@ -1,6 +1,7 @@
 import { MongooseError } from "mongoose";
 
 import { AppError } from "@Utils/appError"
+import { Response } from "express";
 
 export interface IControllerError extends AppError {
   code?: number;
@@ -21,4 +22,9 @@ export interface ICastErrorDb {
 
 export interface IDuplicateFieldsDb {
   errmsg?: string;
+}
+
+// Controllers Response
+export interface IResponseDynamicBuffer extends Response {
+  body?: any; // TODO: Investigate which type it is
 }
