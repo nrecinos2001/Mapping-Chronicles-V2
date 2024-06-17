@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 /*
   Copyright 2023 Mapping Chronicles
   Use of this source code is governed by an MIT-style
@@ -5,10 +7,10 @@
   https://opensource.org/licenses/MIT.
 */
 const Pin = require('../models/Pin');
-const catchAsync = require('../utils/catchAsync');
+import { catchAsync } from '@Utils/index';
 
 // create a pin
-exports.postPin = catchAsync(async (req, res) => {
+export const postPin = catchAsync(async (req: Request, res: Response) => {
     const newPin = new Pin(req.body);
     try {
         const savedPin = await newPin.save();
@@ -20,7 +22,7 @@ exports.postPin = catchAsync(async (req, res) => {
 
 // get all pins
 
-exports.getPin = catchAsync(async (req, res) => {
+export const getPin = catchAsync(async (req: Request, res: Response) => {
     try {
         const pins = await Pin.find();
         res.status(200).json(pins);
