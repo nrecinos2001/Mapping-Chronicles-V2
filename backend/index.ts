@@ -4,10 +4,10 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const express = require("express")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-const cors = require('cors');
+import express from 'express';
+import mongoose from "mongoose";
+import cors from 'cors';
+import * as dotenv from 'dotenv';
 
 const app = express();
 const pinRoute = require("./routes/pinRoutes");
@@ -20,14 +20,15 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect('mongodb://localhost:27017/chronicles',
-    {
+/*     {
+        'pars'
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    })
+    } */)
     .then(() => {
         console.log("MongoDB connected");
     })
-    .catch(err => { console.log(err) });
+    .catch((err: Error) => { console.log(err) });
 
 app.use("/api/pins", pinRoute);
 app.use("/api/users", userRoute);

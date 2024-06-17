@@ -4,8 +4,9 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const mongoose = require('mongoose'); // note that mongoose@5 is used
-const dotenv = require('dotenv');
+import mongoose from 'mongoose'; // note that mongoose@5 is used
+import * as dotenv from 'dotenv';
+//const dotenv = require('dotenv');
 
 // handle uncaught exceptions
 process.on('uncaughtException', (err) => { // i.e database connection errors
@@ -15,11 +16,11 @@ process.on('uncaughtException', (err) => { // i.e database connection errors
 });
 
 dotenv.config({ path: './config.env' }); // use my defined enviroment variables. needs to be prior invoking the app  file so it can be loaded correctly
-const app = require('./app');
+import { app } from './app';
 
-const dbPassword = process.env.DATABASE_PASSWORD;
-const dbConnection = process.env.DATABASE;
-const DB = dbConnection?.replace('<PASSWORD>', dbPassword as string);// replace the password into the connection string
+const dbPassword = process.env.DATABASE_PASSWORD as string;
+const dbConnection = process.env.DATABASE as string;
+const DB = dbConnection?.replace('<PASSWORD>', dbPassword as string) as string;// replace the password into the connection string
 //const DB = process.env.DATABASE_LOCAL;
 console.log(DB);
 
