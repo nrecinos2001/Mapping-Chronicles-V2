@@ -14,7 +14,8 @@
     "paths": {
       "@Routes/*": ["routes/*"],
       "@Utils/*": ["utils/*"],
-      "@Controllers/*": ["controllers/*"]
+      "@Controllers/*": ["controllers/*"],
+      "@Constants/*": ["constants/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
