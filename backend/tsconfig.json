@@ -9,7 +9,12 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "./",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@Routes/*": ["routes/*"],
+      "@Utils/*": ["utils/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

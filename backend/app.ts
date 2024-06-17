@@ -17,11 +17,9 @@ import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 //const hpp = require('hpp');
 import cors from 'cors';
-import AppError from './utils/appError';
+import { AppError } from '@Utils/index';
 import globalErrorHandler from './controllers/errorController';
-import userRouter from './routes/userRoutes';
-import pinRouter from './routes/pinRoutes';
-import layerRoute from "./routes/layers";
+import { userRouter, pinRouter, layerRouter } from '@Routes/index';
 export const app = express();
 
 // set template engines
@@ -48,7 +46,7 @@ app.use(express.static(`${__dirname}/public`)); // public serves a root director
 // mount routes here
 app.use('/api/users', userRouter);
 app.use('/api/pins', pinRouter);
-app.use("/api/layers", layerRoute);
+app.use("/api/layers", layerRouter);
 // handle unhandled endpoints
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
