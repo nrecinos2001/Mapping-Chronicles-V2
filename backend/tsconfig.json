@@ -13,7 +13,8 @@
     "baseUrl": ".",
     "paths": {
       "@Routes/*": ["routes/*"],
-      "@Utils/*": ["utils/*"]
+      "@Utils/*": ["utils/*"],
+      "@Controllers/*": ["controllers/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
