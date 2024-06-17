@@ -1,7 +1,7 @@
 import { MongooseError } from "mongoose";
 
 import { AppError } from "@Utils/appError"
-import { Response } from "express";
+import { Request, Response } from "express";
 
 export interface IControllerError extends AppError {
   code?: number;
@@ -27,4 +27,16 @@ export interface IDuplicateFieldsDb {
 // Controllers Response
 export interface IResponseDynamicBuffer extends Response {
   body?: any; // TODO: Investigate which type it is
+}
+
+export interface IRequestWithLoggedUser extends Request {
+  user: any; // TODO: Update type
+}
+
+// Token
+export interface ITokenPayload {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
 }
