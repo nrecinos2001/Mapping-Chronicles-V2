@@ -9,7 +9,7 @@ import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 import { AppError, catchAsync } from '@Utils/index';
-import { jwtCookieExpiresIn, jwtExpiresIn, jwtSecret } from '@Constants/index';
+import { jwtCookieExpiresIn, jwtExpiresIn, jwtSecret } from '@Constants/jwt';
 import { ILoginRequest, IRequestWithLoggedUser, ITokenPayload } from 'types';
 
 
