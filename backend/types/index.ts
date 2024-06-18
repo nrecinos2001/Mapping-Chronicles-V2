@@ -49,3 +49,10 @@ export interface ILoginRequest extends Request {
     password: string;
   }
 }
+
+// MAIL
+export interface EmailOptions {
+  email: string;
+  subject: string;
+  message: string;
+}
