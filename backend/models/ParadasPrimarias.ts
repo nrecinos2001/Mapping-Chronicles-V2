@@ -4,18 +4,18 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const moongose = require('mongoose');
+import mongoose from 'mongoose';
 
-const RutasPrimariasSchema = new moongose.Schema({
-    _id : moongose.Schema.Types.ObjectId,
-    type:{
+const ParadasPrimariasSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    type: {
         type: String,
         required: true
     },
-    name:{
+    name: {
         type: String,
         required: true
     },
-    })
+});
 
-module.exports = moongose.model('RutasPrimarias', RutasPrimariasSchema, 'rutas_primarias')
+export const ParadasPrimarias = mongoose.model('ParadasPrimarias', ParadasPrimariasSchema, 'paradas_primarias');

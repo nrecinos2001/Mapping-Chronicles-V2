@@ -1,7 +1,8 @@
-import { MongooseError } from "mongoose";
+import { Document, MongooseError } from "mongoose";
 
 import { AppError } from "@Utils/appError"
 import { Request, Response } from "express";
+import { User } from "@Models/userModel";
 
 export interface IControllerError extends AppError {
   code?: number;
@@ -55,4 +56,18 @@ export interface EmailOptions {
   email: string;
   subject: string;
   message: string;
+}
+
+
+// SCHEMAS 
+export enum RoleEnum {
+  DRIVER = 'driver',
+  STUDENT = 'student',
+}
+export interface IUserModel extends Document {
+  username: string;
+  email: string;
+  password: string;
+  active: boolean;
+  role: 'driver' | 'student';
 }

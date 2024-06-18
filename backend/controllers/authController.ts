@@ -7,10 +7,11 @@
 import { NextFunction, Request, Response } from 'express';
 //import { promisify } from 'util';
 import * as jwt from 'jsonwebtoken';
-import User from '../models/userModel';
+
+import { User } from '@Models/index';
 import { AppError, catchAsync } from '@Utils/index';
 import { jwtCookieExpiresIn, jwtExpiresIn, jwtSecret } from '@Constants/jwt';
-import { ILoginRequest, IRequestWithLoggedUser, ITokenPayload } from 'types';
+import { ILoginRequest, IRequestWithLoggedUser, ITokenPayload, IUserModel } from 'types';
 
 
 const promisefyJWTToken = (token: string) => {
@@ -25,7 +26,7 @@ const signToken = (id: string) => jwt.sign({ id }, jwtSecret, {
     expiresIn: jwtExpiresIn,
 });
 
-const createSendToken = (user: ITokenPayload, statusCode: number, res: Response) => {
+const createSendToken = (user: IUserModel, statusCode: number, res: Response) => {
     const token = signToken(user._id);
 
     res.cookie('jwt', token, {

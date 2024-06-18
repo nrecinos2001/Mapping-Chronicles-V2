@@ -15,7 +15,8 @@
       "@Routes/*": ["routes/*"],
       "@Utils/*": ["utils/*"],
       "@Controllers/*": ["controllers/*"],
-      "@Constants/*": ["constants/*"]
+      "@Constants/*": ["constants/*"],
+      "@Models/*": ["models/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

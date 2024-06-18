@@ -4,11 +4,12 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
+import mongoose, { Model, Schema } from 'mongoose';
+import validator from 'validator';
+import * as bcrypt from 'bcryptjs';
+import { IUserModel } from 'types';
 
-const userSchema = new mongoose.Schema({
+export const userSchema: Schema<IUserModel> = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'username must be provided'],
@@ -54,6 +55,4 @@ userSchema.methods.correctPassword = async function (candidatePassword, userPass
     return bcrypt.compare(candidatePassword, userPassword);
 };
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+export const User: Model<IUserModel> = mongoose.model('User', userSchema);
