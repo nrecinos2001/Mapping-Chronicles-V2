@@ -8,8 +8,9 @@ import mongoose from 'mongoose';
 import validator from 'validator';
 import * as bcrypt from 'bcryptjs';
 import { IUserModel } from 'types';
+const { Schema } = mongoose;
 
-const userSchema = new mongoose.Schema<IUserModel>({
+const userSchema = new Schema<IUserModel>({
     username: {
         type: String,
         required: [true, 'username must be provided'],
@@ -56,3 +57,4 @@ userSchema.methods.correctPassword = async function (candidatePassword, userPass
 };
 
 export const User = mongoose.model<IUserModel>('User', userSchema)//as Model<IUserModel>;
+

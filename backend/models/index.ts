@@ -4,4 +4,4 @@ export * from './ParadasPrimarias';
 export * from './Pin';
 export * from './RutasPrimarias';
 export * from './User_old';
-export * from './userModel';
+export * from './User';
