@@ -70,4 +70,6 @@ export interface IUserModel extends Document {
   password: string;
   active: boolean;
   role: 'driver' | 'student';
+  correctPassword: (password: string, userPassword: string) => Boolean,
+  changedPasswordAfter: (iat: number) => Boolean;
 }
