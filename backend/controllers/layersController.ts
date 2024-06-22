@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { IResponseDynamicBuffer } from "types";
 
+import { ParadasPrimarias, BufferEntradasUCA, EntradasUCA, RutasPrimarias } from '@Models/index';
+import { IResponseDynamicBuffer } from "types";
 /*
   Copyright 2023 Mapping Chronicles
   Use of this source code is governed by an MIT-style
@@ -8,12 +9,7 @@ import { IResponseDynamicBuffer } from "types";
   https://opensource.org/licenses/MIT.
 */
 const turf = require('@turf/turf');
-const url = require('url');
-const queryString = require('querystring');
-const ParadasPrimarias = require('../models/ParadasPrimarias');
-const BufferEntradasUCA = require('../models/BufferEntradasUCA');
-const EntradasUCA = require('../models/EntradasUCA');
-const RutasPrimarias = require('../models/RutasPrimarias');
+
 export const dinamicBuffer = function (req: Request, res: IResponseDynamicBuffer) {
     
     const requestUrl = req.url;
@@ -36,7 +32,7 @@ export const dinamicBuffer = function (req: Request, res: IResponseDynamicBuffer
     res.setHeader('Content-Type', 'application/json');
     
     res.body = buffered;
- 
+
     res.status(200).json([res.body]);
 }
 
