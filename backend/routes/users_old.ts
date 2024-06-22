@@ -5,10 +5,10 @@
   https://opensource.org/licenses/MIT.
 */
 import express from 'express';
-export const usersOldRouter = express.Router();
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
+import * as bcrypt from 'bcryptjs';
+import { User } from '@Models/index';
 
+export const usersOldRouter = express.Router();
 
 // create a user
 usersOldRouter.post("/register", async (req, res) => {
