@@ -18,4 +18,4 @@ const EntradasUCASchema = new mongoose.Schema({
     }
 });
 
-export const EntradasUca = mongoose.model('EntradasUCA', EntradasUCASchema, 'entradas_uca')
+export const EntradasUCA = mongoose.model('EntradasUCA', EntradasUCASchema, 'entradas_uca')
