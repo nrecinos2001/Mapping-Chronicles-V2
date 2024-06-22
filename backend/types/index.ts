@@ -1,8 +1,7 @@
 import { Document, MongooseError } from "mongoose";
+import { Request, Response } from "express";
 
 import { AppError } from "@Utils/appError"
-import { Request, Response } from "express";
-import { User } from "@Models/userModel";
 
 export interface IControllerError extends AppError {
   code?: number;
