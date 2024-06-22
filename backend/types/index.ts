@@ -72,3 +72,9 @@ export interface IUserModel extends Document {
   correctPassword: (password: string, userPassword: string) => Boolean,
   changedPasswordAfter: (iat: number) => Boolean;
 }
+
+export interface IParadasPrimarias extends Document {
+  type: string;
+  name: string;
+  _doc: number;
+}
