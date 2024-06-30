@@ -5,8 +5,9 @@
   https://opensource.org/licenses/MIT.
 */
 import mongoose from 'mongoose';
+import { IBufferEntradasUCA } from 'types';
 
-const BufferEntradasUCASchema = new mongoose.Schema({
+const BufferEntradasUCASchema = new mongoose.Schema<IBufferEntradasUCA>({
     _id: mongoose.Schema.Types.ObjectId,
     type: {
         type: String,
@@ -18,6 +19,4 @@ const BufferEntradasUCASchema = new mongoose.Schema({
     }
 });
 
-export const BufferEntradasUCA = mongoose.model('BufferEntradasUCA', BufferEntradasUCASchema, 'buffer_entradas_uca');
-
-//module.exports = moongose.model('BufferEntradasUCA', BufferEntradasUCASchema, 'buffer_entradas_uca')
+export const BufferEntradasUCA = mongoose.model<IBufferEntradasUCA>('BufferEntradasUCA', BufferEntradasUCASchema, 'buffer_entradas_uca');

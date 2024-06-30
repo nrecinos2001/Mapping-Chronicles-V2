@@ -5,8 +5,9 @@
   https://opensource.org/licenses/MIT.
 */
 import mongoose from 'mongoose';
+import { IRutasPrimarias } from 'types';
 
-const RutasPrimariasSchema = new mongoose.Schema({
+const RutasPrimariasSchema = new mongoose.Schema<IRutasPrimarias>({
     _id: mongoose.Schema.Types.ObjectId,
     type: {
         type: String,
@@ -18,4 +19,4 @@ const RutasPrimariasSchema = new mongoose.Schema({
     },
 })
 
-export const RutasPrimarias = mongoose.model('RutasPrimarias', RutasPrimariasSchema, 'rutas_primarias')
+export const RutasPrimarias = mongoose.model<IRutasPrimarias>('RutasPrimarias', RutasPrimariasSchema, 'rutas_primarias')

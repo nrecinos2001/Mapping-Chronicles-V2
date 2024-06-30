@@ -5,8 +5,9 @@
   https://opensource.org/licenses/MIT.
 */
 import mongoose from 'mongoose';
+import { IEntradasUCA } from 'types';
 
-const EntradasUCASchema = new mongoose.Schema({
+const EntradasUCASchema = new mongoose.Schema<IEntradasUCA>({
     _id: mongoose.Schema.Types.ObjectId,
     type: {
         type: String,
@@ -18,4 +19,4 @@ const EntradasUCASchema = new mongoose.Schema({
     }
 });
 
-export const EntradasUCA = mongoose.model('EntradasUCA', EntradasUCASchema, 'entradas_uca')
+export const EntradasUCA = mongoose.model<IEntradasUCA>('EntradasUCA', EntradasUCASchema, 'entradas_uca')

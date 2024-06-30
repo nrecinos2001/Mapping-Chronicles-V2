@@ -78,3 +78,27 @@ export interface IParadasPrimarias extends Document {
   name: string;
   _doc: number;
 }
+
+export interface IBufferEntradasUCA extends Document {
+  type: string;
+  name: string;
+}
+
+export interface IEntradasUCA extends Document {
+  type: string;
+  name: string;
+}
+
+export interface IRutasPrimarias extends Document {
+  type: string;
+  name: string;
+}
+
+export interface IPin extends Document {
+  username: string;
+  title: string;
+  desc: string;
+  rating: number;
+  lat: number;
+  long: number;
+}
