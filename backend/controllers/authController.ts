@@ -4,23 +4,33 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const { promisify } = require('util');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const User = require('../models/userModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
-const sendEmail = require('../utils/email');
+import { NextFunction, Request, Response } from 'express';
+//import { promisify } from 'util';
+import * as jwt from 'jsonwebtoken';
 
-const signToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+import { User } from '@Models/index';
+import { AppError, catchAsync } from '@Utils/index';
+import { jwtCookieExpiresIn, jwtExpiresIn, jwtSecret } from '@Constants/jwt';
+import { ILoginRequest, IRequestWithLoggedUser, ITokenPayload, IUserModel } from 'types';
+
+
+const promisefyJWTToken = (token: string) => {
+    return new Promise(function (resolve, reject) {
+        if (token) return resolve(jwt.verify(token, jwtSecret) as jwt.JwtPayload);
+
+        return reject('Invalid Token');
+    }) as Promise<jwt.JwtPayload>;
+};
+
+const signToken = (id: string) => jwt.sign({ id }, jwtSecret, {
+    expiresIn: jwtExpiresIn,
 });
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user: IUserModel, statusCode: number, res: Response) => {
     const token = signToken(user._id);
 
     res.cookie('jwt', token, {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), // convert to milliseconds
+        expires: new Date(Date.now() + jwtCookieExpiresIn * 24 * 60 * 60 * 1000), // convert to milliseconds
         //secure: true, // https
         //httpOnly: true, // do not allow browser to access cookie to try to prevent xss <-- currently not working so I will disable it for now
     });
@@ -36,7 +46,7 @@ const createSendToken = (user, statusCode, res) => {
     });
 };
 
-exports.register = catchAsync(async (req, res, next) => {
+export const register = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const newUser = await User.create({
         username: req.body.username,
         email: req.body.email,
@@ -47,7 +57,7 @@ exports.register = catchAsync(async (req, res, next) => {
     createSendToken(newUser, 201, res);
 });
 
-exports.login = catchAsync(async (req, res, next) => {
+export const login = catchAsync(async (req: ILoginRequest, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     // 1) Check if email exists
@@ -64,9 +74,9 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
-exports.protect = catchAsync(async (req, res, next) => {
+export const protect = catchAsync(async (req: IRequestWithLoggedUser, res: Response, next: NextFunction) => {
     // 1) get token and check if it exists
-    let token;
+    let token: string;
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1]; // format is Bearer <token>, therefore need [1] for <token> value
     }
@@ -74,7 +84,7 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(new AppError('You are not logged in. Please log in to get access', 401));
     }
     // 2) Verify token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET); // will decode user ID
+    const decoded = await promisefyJWTToken(token); // will decode user ID
 
     // 3) check if user that made the request still exists
     const currentUser = await User.findById(decoded.id); // this is why I decode the id from the token, so I can now query by userId and make sure that the token belongs to the requesting user
@@ -91,7 +101,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     next(); // grant access to protected route... go to 'next' middlware
 });
 
-exports.restrictTo = (...roles) => (req, res, next) => {
+export const restrictTo = (...roles: string[]) => (req: IRequestWithLoggedUser, res: Response, next: NextFunction) => {
     if (!roles.includes(req.user.role)) { // the role is comming in the middleware from the above function protect(), which in the routes is placed before the restricTo
         return next(new AppError('You do not have permission to perform this action', 403));
     }

@@ -4,7 +4,7 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -27,4 +27,4 @@ const UserSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-module.exports = mongoose.model("User", UserSchema);
+export const UserOld = mongoose.model("UserOld", UserSchema);

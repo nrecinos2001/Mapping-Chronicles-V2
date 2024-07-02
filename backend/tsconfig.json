@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./build",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@Routes/*": ["routes/*"],
+      "@Utils/*": ["utils/*"],
+      "@Controllers/*": ["controllers/*"],
+      "@Constants/*": ["constants/*"],
+      "@Models/*": ["models/*"]
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true
+  }
+}

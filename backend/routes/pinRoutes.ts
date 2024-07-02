@@ -4,11 +4,9 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const express = require('express');
+import express from 'express';
 const pinController = require('../controllers/pinController');
 
-const router = express.Router();
+export const pinRouter = express.Router();
 
-router.route('/').post(pinController.postPin).get(pinController.getPin);
-
-module.exports = router;
+pinRouter.route('/').post(pinController.postPin).get(pinController.getPin);

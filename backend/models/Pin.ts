@@ -4,9 +4,10 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
+import { IPin } from 'types';
 
-const PinSchema = new mongoose.Schema({
+const PinSchema = new mongoose.Schema<IPin>({
     username: {
         type: String,
         required: true,
@@ -38,4 +39,4 @@ const PinSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-module.exports = mongoose.model("Pin", PinSchema);
+export const Pin = mongoose.model<IPin>("Pin", PinSchema);

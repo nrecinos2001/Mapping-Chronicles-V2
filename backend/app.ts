@@ -4,22 +4,23 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
+
+import express from 'express';
+import { NextFunction, Request, Response } from "express";
 /* express configuration */
-const express = require('express');
-const morgan = require('morgan'); // middleware
-const path = require('path');
+//const express = require('express');
+import morgan from 'morgan'; // middleware
+import path from 'path';
 //const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss-clean');
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss-clean';
 //const hpp = require('hpp');
-const cors = require('cors');
-const AppError = require('./utils/appError');
-const globalErrorHandler = require('./controllers/errorController');
-const userRouter = require('./routes/userRoutes');
-const pinRouter = require('./routes/pinRoutes');
-const layerRoute = require("./routes/layers");
-const app = express();
+import cors from 'cors';
+import { AppError } from '@Utils/index';
+import { errorHandler as globalErrorHandler } from '@Controllers/index';
+import { userRouter, pinRouter, layerRouter } from '@Routes/index';
+export const app = express();
 
 // set template engines
 //app.set('view engine', 'pug');
@@ -31,7 +32,7 @@ app.use(cors());
 
 /* middleware */
 if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev')); // also logs to console besides being a middleware
+  app.use(morgan('dev')); // also logs to console besides being a middleware
 }
 
 app.use(express.json());
@@ -45,10 +46,10 @@ app.use(express.static(`${__dirname}/public`)); // public serves a root director
 // mount routes here
 app.use('/api/users', userRouter);
 app.use('/api/pins', pinRouter);
-app.use("/api/layers", layerRoute);
+app.use("/api/layers", layerRouter);
 // handle unhandled endpoints
-app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+app.all('*', (req: Request, res: Response, next: NextFunction) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
 // global error handling middleware
@@ -57,4 +58,4 @@ app.use(globalErrorHandler);
 // prevent from xss
 //app.use(xss());
 
-module.exports = app;
+//module.exports = app;

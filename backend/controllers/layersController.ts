@@ -1,3 +1,7 @@
+import { Request, Response } from "express";
+
+import { ParadasPrimarias, BufferEntradasUCA, EntradasUCA, RutasPrimarias } from '@Models/index';
+import { IResponseDynamicBuffer } from "types";
 /*
   Copyright 2023 Mapping Chronicles
   Use of this source code is governed by an MIT-style
@@ -5,13 +9,8 @@
   https://opensource.org/licenses/MIT.
 */
 const turf = require('@turf/turf');
-const url = require('url');
-const queryString = require('querystring');
-const ParadasPrimarias = require('../models/ParadasPrimarias');
-const BufferEntradasUCA = require('../models/BufferEntradasUCA');
-const EntradasUCA = require('../models/EntradasUCA');
-const RutasPrimarias = require('../models/RutasPrimarias');
-exports.dinamicBuffer = function(req, res) {
+
+export const dinamicBuffer = function (req: Request, res: IResponseDynamicBuffer) {
     
     const requestUrl = req.url;
     
@@ -33,12 +32,12 @@ exports.dinamicBuffer = function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     
     res.body = buffered;
- 
+
     res.status(200).json([res.body]);
 }
 
 
-exports.getBusStopsByRadius = async function(req, res) {
+export const getBusStopsByRadius = async function (req: Request, res: Response) {
 
     const requestUrl = req.url
 
@@ -69,7 +68,7 @@ exports.getBusStopsByRadius = async function(req, res) {
 }
 
 
-exports.getNearestBusStop = async function(req, res) {
+export const getNearestBusStop = async function (req: Request, res: Response) {
     
         const requestUrl = req.url
     
@@ -94,7 +93,7 @@ exports.getNearestBusStop = async function(req, res) {
     }
 
 
-exports.getBufferEntradasUCA = async function(req, res) {
+export const getBufferEntradasUCA = async function (req: Request, res: Response) {
     try{
         const bufferEntradasUCA = await BufferEntradasUCA.find();
         res.status(200).json(bufferEntradasUCA);
@@ -105,7 +104,7 @@ exports.getBufferEntradasUCA = async function(req, res) {
 }
 
 
-exports.getEntradasUCA = async function(req, res) {
+export const getEntradasUCA = async function (req: Request, res: Response) {
     try{
         const entradasUCA = await EntradasUCA.find();
         res.status(200).json(entradasUCA);
@@ -115,7 +114,7 @@ exports.getEntradasUCA = async function(req, res) {
     }
 }
 
-exports.getParadasPrimarias = async function(req, res) {
+export const getParadasPrimarias = async function (req: Request, res: Response) {
     try{
         const paradasPrimarias = await ParadasPrimarias.find(); 
         res.status(200).json(paradasPrimarias);
@@ -125,7 +124,7 @@ exports.getParadasPrimarias = async function(req, res) {
     }
 }
 
-exports.getRutasPrimarias = async function(req, res) {
+export const getRutasPrimarias = async function (req: Request, res: Response) {
     try {
         const rutasPrimarias = await RutasPrimarias.find();
         res.status(200).json(rutasPrimarias);

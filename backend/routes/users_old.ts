@@ -4,13 +4,14 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-const router = require("express").Router();
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
+import express from 'express';
+import * as bcrypt from 'bcryptjs';
+import { User } from '@Models/index';
 
+export const usersOldRouter = express.Router();
 
 // create a user
-router.post("/register", async (req, res) => {    
+usersOldRouter.post("/register", async (req, res) => {
     try {
         //generate new password
         const salt = await bcrypt.genSalt(10);
@@ -34,7 +35,7 @@ router.post("/register", async (req, res) => {
 
 //login
 
-router.post("/login", async (req, res) => {
+usersOldRouter.post("/login", async (req, res) => {
     try {
         //find user
         const user = await User.findOne({ username: req.body.username });
@@ -48,6 +49,3 @@ router.post("/login", async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-
-module.exports = router;
