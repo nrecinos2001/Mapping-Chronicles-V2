@@ -22,7 +22,6 @@ const dbPassword = process.env.DATABASE_PASSWORD as string;
 const dbConnection = process.env.DATABASE as string;
 const DB = dbConnection?.replace('<PASSWORD>', dbPassword as string) as string;// replace the password into the connection string
 //const DB = process.env.DATABASE_LOCAL;
-console.log(DB);
 
 // database connection
 mongoose.connect(DB, {
