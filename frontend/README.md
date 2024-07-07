@@ -66,8 +66,8 @@ El proyecto está configurado para ser compatible con las siguientes versiones d
 ### Proxy
 Para el desarrollo local, se ha configurado un proxy en `package.json` para redirigir las solicitudes API al backend:
 
-	```bash
-	"proxy": "http://localhost:5000/api"
-	```
+```bash
+"proxy": "http://localhost:5000/api"
+```
 	
 Esto permite que las solicitudes desde el frontend al backend sean manejadas sin problemas de CORS durante el desarrollo.
